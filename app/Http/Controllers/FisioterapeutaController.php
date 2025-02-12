@@ -10,5 +10,7 @@ class FisioterapeutaController extends Controller
     {
         // Solo una página sencilla por ahora
         return view('fisioterapeuta.index');
+
+        //hola que tal?
     }
 }
