@@ -1,8 +1,11 @@
+<!-- resources/views/users/index.blade.php -->
+
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
     <h2>Lista de Usuarios</h2>
+    <!-- Enlace a la vista de crear un nuevo usuario -->
     <a href="{{ route('users.create') }}" class="btn btn-primary mb-3">Nuevo Usuario</a>
 
     @if (session('success'))

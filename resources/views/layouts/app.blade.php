@@ -22,8 +22,15 @@
                     <li class="nav-item">
                         <a class="nav-link active" href="{{ route('users.index') }}">Usuarios</a>
                     </li>
-                   
-                   
+                    <!-- Si el usuario está autenticado, muestra el botón de logout -->
+                    @auth
+                    <li class="nav-item">
+                        <form action="{{ route('logout') }}" method="POST" class="d-inline">
+                            @csrf
+                            <button type="submit" class="btn btn-danger btn-sm">Cerrar sesión</button>
+                        </form>
+                    </li>
+                    @endauth
                 </ul>
             </div>
         </div>
