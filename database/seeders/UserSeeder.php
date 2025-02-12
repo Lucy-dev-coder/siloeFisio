@@ -11,7 +11,7 @@ class UserSeeder extends Seeder
     {
         User::insert([
             [
-                'name' => 'Admin',
+                'name' => 'lili',
                 'email' => 'admin@example.com',
                 'password' => Hash::make('12345678'),
                 'role_id' => 1, // Asegúrate de que este ID coincida con el Administrador en roles
@@ -19,10 +19,10 @@ class UserSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'name' => 'Fisioterapeuta',
-                'email' => 'fisioterapeuta@example.com',
+                'name' => 'juan ',
+                'email' => 'terapeuta@example.com',
                 'password' => Hash::make('12345678'),
-                'role_id' => 2, // Asegúrate de que este ID coincida con Fisioterapeuta en roles
+                'role_id' => 2, // Asegúrate de que este ID coincida con terapeuta en roles
                 'created_at' => now(),
                 'updated_at' => now(),
             ],

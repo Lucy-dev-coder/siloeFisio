@@ -14,17 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::with('role')->paginate(10);
-        return view('users.index', compact('users'));
-    }
-
-    /**
-     * Muestra el formulario para crear un usuario.
-     */
-    public function create()
-    {
-        $roles = Role::all(); // Obtener todos los roles
-        return view('users.create', compact('roles'));
+        $users = User::with('role')->get();
+        $roles = Role::all();
+        return view('users.index', compact('users', 'roles'));
     }
 
     /**
@@ -46,16 +38,8 @@ class UserController extends Controller
             'role_id' => $request->role_id,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Usuario creado correctamente.');
-    }
-
-    /**
-     * Muestra el formulario para editar un usuario.
-     */
-    public function edit(User $user)
-    {
-        $roles = Role::all();
-        return view('users.edit', compact('user', 'roles'));
+        session()->flash('success', 'Usuario creado correctamente.');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -75,7 +59,8 @@ class UserController extends Controller
             'role_id' => $request->role_id,
         ]);
 
-        return redirect()->route('users.index')->with('success', 'Usuario actualizado correctamente.');
+        session()->flash('success', 'Usuario actualizado correctamente.');
+        return redirect()->route('users.index');
     }
 
     /**
@@ -84,6 +69,8 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
+        
         return redirect()->route('users.index')->with('success', 'Usuario eliminado correctamente.');
     }
+    
 }

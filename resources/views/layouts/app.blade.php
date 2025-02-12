@@ -9,7 +9,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <style>
         /* Estilo para el panel lateral */
         .sidebar {
@@ -73,12 +75,12 @@
 
     <!-- Barra lateral -->
     <div class="sidebar" id="sidebar">
-        <a href="{{ url('/') }}" class="navbar-brand">Fisioterapia</a>
+        <a href="{{ url('/') }}" class="navbar-brand">Terapia</a>
         @if (Auth::user()->role->rol == 'Administrador')
         <div class="navbar-nav">
             <a href="{{ route('users.index') }}" class="nav-link @if(request()->routeIs('users.index')) active @endif">Usuarios</a>
             <!-- Agregar otras opciones de menú según sea necesario -->
-            <a href="{{ route('fisioterapeuta.index') }}" class="nav-link @if(request()->routeIs('fisioterapeuta.index')) active @endif">Fisioterapeuta</a>
+            <a href="{{ route('terapeuta.index') }}" class="nav-link @if(request()->routeIs('terapeuta.index')) active @endif">Terapeuta</a>
         </div>
         @endif
         

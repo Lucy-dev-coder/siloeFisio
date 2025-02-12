@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleMiddleware;
-use App\Http\Controllers\FisioterapeutaController;
+use App\Http\Controllers\TerapeutaController;
 
 // Ruta para la página de inicio
 Route::get('/', function () {
@@ -20,7 +20,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('users', UserController::class);
     });
    
-        Route::get('/fisioterapeuta', [FisioterapeutaController::class, 'index'])->name('fisioterapeuta.index');
+        Route::get('/terapeuta', [TerapeutaController::class, 'index'])->name('terapeuta.index');
    
 });
 // Ruta de login

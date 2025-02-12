@@ -10,7 +10,7 @@ class RoleSeeder extends Seeder
     {
         Role::insert([
             ['rol' => 'Administrador'],
-            ['rol' => 'Fisioterapeuta'],
+            ['rol' => 'Terapeuta'],
         ]);
     }
 }
