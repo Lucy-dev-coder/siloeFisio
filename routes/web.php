@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleMiddleware;
 use App\Http\Controllers\TerapeutaController;
+use App\Http\Controllers\PacienteController;
 
 // Ruta para la página de inicio
 Route::get('/', function () {
@@ -29,3 +30,5 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 // Ruta de logout
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::resource('pacientes', PacienteController::class);

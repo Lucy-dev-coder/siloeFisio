@@ -81,6 +81,7 @@
             <a href="{{ route('users.index') }}" class="nav-link @if(request()->routeIs('users.index')) active @endif">Usuarios</a>
             <!-- Agregar otras opciones de menú según sea necesario -->
             <a href="{{ route('terapeuta.index') }}" class="nav-link @if(request()->routeIs('terapeuta.index')) active @endif">Terapeuta</a>
+            <a href="{{ route('pacientes.index') }}" class="nav-link @if(request()->routeIs('pacientes.index')) active @endif">Pacientes</a>
         </div>
         @endif
         
