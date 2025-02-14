@@ -1,5 +1,3 @@
-
-
 @extends('layouts.app')
 
 @section('content')
@@ -8,143 +6,52 @@
         <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createPacienteModal">Crear
             Paciente</button>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>Nombres</th>
-                    <th>Apellidos</th>
-                    <th>CI</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($pacientes as $paciente)
+            <table class="table table-bordered">
+                <thead>
                     <tr>
-                        <td>{{ $paciente->nombres }}</td>
-                        <td>{{ $paciente->apellidos }}</td>
-                        <td>{{ $paciente->ci }}</td>
-                        <td>
-                            <button class="btn btn-warning btn-sm" 
-                            onclick='editPaciente(@json($paciente))'
-                            data-bs-toggle="modal" 
-                            data-bs-target="#editPacienteModal">
-                        Editar
-                    </button>
-
-                            <form id="delete-form-{{ $paciente->id }}"
-                                action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST"
-                                style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
-
-                            <button class="btn btn-danger btn-sm"
-                                onclick="confirmDelete({{ $paciente->id }})">Eliminar</button>
-                        </td>
+                        <th>Nombres</th>
+                        <th>CI</th>
+                        <th>Celular</th>
+                        <th>Tipo sangre</th>
+                        <th>Acciones</th>
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach ($pacientes as $paciente)
+                        <tr>
+                            <td>{{ $paciente->nombres }} {{ $paciente->apellidos }}</td>
+                            <td>{{ $paciente->ci }}</td>
+                            <td>{{ $paciente->celular }}</td>
+                            <td>{{ $paciente->grupo_sanguineo }}</td>
+                            <td>
+                                <!-- Ver detalles -->
+                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#viewPacienteModal{{ $paciente->id }}">
+                                    <i class="fas fa-eye"></i> <!-- Icono de ojo -->
+                                </button>
+                                
+                                <!-- Editar -->
+                                <button class="btn btn-warning btn-sm" onclick='editPaciente(@json($paciente))' data-bs-toggle="modal" data-bs-target="#editPacienteModal">
+                                    <i class="fas fa-edit"></i> <!-- Icono de lápiz para editar -->
+                                </button>
+                                
+                                <!-- Eliminar -->
+                                <form id="delete-form-{{ $paciente->id }}" action="{{ route('pacientes.destroy', $paciente->id) }}" method="POST" style="display: none;">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
+                                <button class="btn btn-danger btn-sm" onclick="confirmDelete({{ $paciente->id }})">
+                                    <i class="fas fa-trash"></i> <!-- Icono de papelera para eliminar -->
+                                </button>
+                                
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            
     </div>
 
-    <!-- Modal Crear Paciente -->
-    <div class="modal fade" id="createPacienteModal" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Crear Paciente</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="createPacienteForm" action="{{ route('pacientes.store') }}" method="POST">
-                        @csrf
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Nombres:</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="nombres" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Apellidos:</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="apellidos" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">CI:</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="ci" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Fecha de Nacimiento:</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="date" class="form-control" name="fecha_nacimiento" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Celular:</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="celular" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Correo Electrónico:</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="email" class="form-control" name="correo" required>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Dirección:</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="direccion">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Grupo Sanguíneo:</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="grupo_sanguineo">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">Contacto de Emergencia:</label>
-                            <div class="col-sm-9">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" name="contacto_emergencia">
-                                </div>
-                            </div>
-                        </div>
-
-                        <button type="submit" class="btn btn-success">Guardar</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+  
 
     <!-- Modal Editar Paciente -->
     <div class="modal fade" id="editPacienteModal" tabindex="-1">
@@ -255,34 +162,181 @@
             </div>
         </div>
     </div>
+    @foreach ($pacientes as $paciente)
+    <div class="modal fade" id="viewPacienteModal{{ $paciente->id }}" tabindex="-1" aria-labelledby="viewPacienteModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewPacienteModalLabel">Detalles del paciente: {{ $paciente->nombres }} {{ $paciente->apellidos }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><strong>Nombres:</strong> {{ $paciente->nombres }} {{ $paciente->apellidos }}</p>
+                    <p><strong>CI:</strong> {{ $paciente->ci }}</p>
+                    <p><strong>Fecha de nacimiento:</strong> {{ \Carbon\Carbon::parse($paciente->fecha_nacimiento)->format('Y-m-d') }}</p>
+
+                    <p><strong>Celular:</strong> {{ $paciente->celular }}</p>
+                    <p><strong>Correo:</strong> {{ $paciente->correo }}</p>
+                    <p><strong>Dirección:</strong> {{ $paciente->direccion }}</p>
+                    <p><strong>Grupo sanguíneo:</strong> {{ $paciente->grupo_sanguineo }}</p>
+                    <p><strong>Contacto de emergencia:</strong> {{ $paciente->contacto_emergencia }}</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+  <!-- Modal Crear Paciente -->
+<div class="modal fade" id="createPacienteModal" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Crear Paciente</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="createPacienteForm" action="{{ route('pacientes.store') }}" method="POST">
+                    @csrf
+
+                    <!-- Nombres -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Nombres:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="nombres" required value="{{ old('nombres') }}">
+                            @error('nombres')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Apellidos -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Apellidos:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="apellidos" required value="{{ old('apellidos') }}">
+                            @error('apellidos')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- CI -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">CI:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="ci" required value="{{ old('ci') }}">
+                            @error('ci')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Fecha de Nacimiento -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Fecha de Nacimiento:</label>
+                        <div class="col-sm-9">
+                            <input type="date" class="form-control" name="fecha_nacimiento" required value="{{ old('fecha_nacimiento') }}">
+                            @error('fecha_nacimiento')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Celular -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Celular:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="celular" value="{{ old('celular') }}">
+                            @error('celular')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Correo Electrónico -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Correo Electrónico:</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" name="correo" required value="{{ old('correo') }}">
+                            @error('correo')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Dirección -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Dirección:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="direccion" value="{{ old('direccion') }}">
+                            @error('direccion')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Grupo Sanguíneo -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Grupo Sanguíneo:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="grupo_sanguineo" value="{{ old('grupo_sanguineo') }}">
+                            @error('grupo_sanguineo')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Contacto de Emergencia -->
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Contacto de Emergencia:</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control" name="contacto_emergencia" value="{{ old('contacto_emergencia') }}">
+                            @error('contacto_emergencia')
+                                <div class="text-danger">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
     <script>
+
+
         function editPaciente(paciente) {
-    console.log('Paciente a editar:', paciente); // Para debug
-    
-    // Asegúrate que el ID existe
-    if (!paciente.id) {
-        console.error('ID de paciente no encontrado');
-        return;
-    }
+           
 
-    // Llenar los campos del formulario
-    document.getElementById('editPacienteId').value = paciente.id;
-    document.getElementById('editPacienteNombres').value = paciente.nombres;
-    document.getElementById('editPacienteApellidos').value = paciente.apellidos;
-    document.getElementById('editPacienteCI').value = paciente.ci;
-    document.getElementById('editPacienteFechaNacimiento').value = paciente.fecha_nacimiento;
-    document.getElementById('editPacienteCelular').value = paciente.celular;
-    document.getElementById('editPacienteCorreo').value = paciente.correo;
-    document.getElementById('editPacienteDireccion').value = paciente.direccion || '';
-    document.getElementById('editPacienteGrupoSanguineo').value = paciente.grupo_sanguineo || '';
-    document.getElementById('editPacienteContactoEmergencia').value = paciente.contacto_emergencia || '';
+            // Asegúrate que el ID existe
+            if (!paciente.id) {
+               
+                return;
+            }
 
-    // Actualizar la URL del formulario
-    const form = document.getElementById('editPacienteForm');
-    form.action = "{{ url('/pacientes') }}/" + paciente.id;
-    console.log('URL del formulario:', form.action); // Para debug
-}
+            // Llenar los campos del formulario
+            document.getElementById('editPacienteId').value = paciente.id;
+            document.getElementById('editPacienteNombres').value = paciente.nombres;
+            document.getElementById('editPacienteApellidos').value = paciente.apellidos;
+            document.getElementById('editPacienteCI').value = paciente.ci;
+            document.getElementById('editPacienteFechaNacimiento').value = '{{ \Carbon\Carbon::parse($paciente->fecha_nacimiento)->format('Y-m-d') }}';
+
+            document.getElementById('editPacienteCelular').value = paciente.celular;
+            document.getElementById('editPacienteCorreo').value = paciente.correo;
+            document.getElementById('editPacienteDireccion').value = paciente.direccion || '';
+            document.getElementById('editPacienteGrupoSanguineo').value = paciente.grupo_sanguineo || '';
+            document.getElementById('editPacienteContactoEmergencia').value = paciente.contacto_emergencia || '';
+
+            // Actualizar la URL del formulario
+            const form = document.getElementById('editPacienteForm');
+            form.action = "{{ url('/pacientes') }}/" + paciente.id;
+           
+        }
 
         function confirmDelete(pacienteId) {
             Swal.fire({
@@ -309,5 +363,15 @@
                 showConfirmButton: false
             });
         @endif
+        
+        @if ($errors->any())
+        Swal.fire({
+            icon: 'error',
+            title: '¡Error!',
+            text: '{{ $errors->first() }}',
+        });
+        @endif
+
     </script>
+    
 @endsection

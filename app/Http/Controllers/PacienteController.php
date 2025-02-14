@@ -12,9 +12,12 @@ class PacienteController extends Controller
      */
     public function index()
     {
-        $pacientes = Paciente::all();
+        // Ordena los pacientes por la fecha de creación de manera descendente (últimos agregados primero)
+        $pacientes = Paciente::orderBy('created_at', 'desc')->get();
+    
         return view('pacientes.index', compact('pacientes'));
     }
+    
 
     /**
      * Muestra el formulario para crear un nuevo paciente.
@@ -39,13 +42,19 @@ class PacienteController extends Controller
             'direccion' => 'nullable|string',
             'grupo_sanguineo' => 'nullable|string|max:5',
             'contacto_emergencia' => 'nullable|string|max:255'
+        ], [
+            'ci.unique' => 'El número de CI ya está registrado.',
+            'correo.unique' => 'El correo electrónico ya está registrado.'
         ]);
-
-        Paciente::create($request->all());
-
-        return redirect()->route('pacientes.index')->with('success', 'Paciente registrado correctamente.');
+    
+        try {
+            Paciente::create($request->all());
+            return redirect()->route('pacientes.index')->with('success', 'Paciente registrado correctamente.');
+        } catch (\Exception $e) {
+            return redirect()->route('pacientes.create')->withErrors(['error' => 'Hubo un error al registrar al paciente.'])->withInput();
+        }
     }
-
+    
     /**
      * Muestra los detalles de un paciente específico.
      */
