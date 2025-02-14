@@ -4,7 +4,7 @@ use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleMiddleware;
-use App\Http\Controllers\TerapeutaController;
+USE App\Http\Controllers\TerapeutaController;
 use App\Http\Controllers\PacienteController;
 
 // Ruta para la página de inicio
@@ -16,12 +16,12 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::middleware([RoleMiddleware::class . ':Administrador'])->group(function () {
 
-
+        Route::resource('pacientes', PacienteController::class);
         // Usamos Route::resource para manejar las rutas de usuarios
         Route::resource('users', UserController::class);
     });
    
-        Route::get('/terapeuta', [TerapeutaController::class, 'index'])->name('terapeuta.index');
+     
    
 });
 // Ruta de login
@@ -31,4 +31,4 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 // Ruta de logout
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-Route::resource('pacientes', PacienteController::class);
+Route::get('/terapeutas', [TerapeutaController::class, 'index'])->name('terapeuta.index');

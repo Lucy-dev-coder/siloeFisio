@@ -1,6 +1,4 @@
-@php
-    dd(route('pacientes.update', ['paciente' => 1])); // Esto te mostrará cómo se construye la URL
-@endphp
+
 
 @extends('layouts.app')
 

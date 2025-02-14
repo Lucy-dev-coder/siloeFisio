@@ -31,7 +31,8 @@ if (Auth::attempt($request->only('email', 'password'))) {
         return redirect()->route('users.index'); // Administrador redirigido a la lista de usuarios
     }
 
-    return redirect()->route('terapeuta.index'); // Redirige a una página por defecto (puedes cambiarla)
+    return redirect()->route('pacientes.index'); // Redirige a una página por defecto (puedes cambiarla)
+   
 }
 
         // Si falla la autenticación, redirige con un error
