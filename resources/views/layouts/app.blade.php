@@ -102,7 +102,7 @@
             <a href="{{ route('users.index') }}" class="nav-link @if(request()->routeIs('users.index')) active @endif">Usuarios</a>
             <a href="{{ route('terapeuta.index') }}" class="nav-link @if(request()->routeIs('terapeuta.index')) active @endif">Terapeuta</a>
             <a href="{{ route('pacientes.index') }}" class="nav-link @if(request()->routeIs('pacientes.index')) active @endif">Pacientes</a>
-                
+            <a href="{{ route('historiales.index') }}" class="nav-link @if(request()->routeIs('historiales.index')) active @endif">Historiales</a>    
         </div>
         @endif
         

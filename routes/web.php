@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Middleware\RoleMiddleware;
 USE App\Http\Controllers\TerapeutaController;
 use App\Http\Controllers\PacienteController;
+use App\Http\Controllers\HistorialController;
 
 // Ruta para la página de inicio
 Route::get('/', function () {
@@ -32,3 +33,6 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/terapeutas', [TerapeutaController::class, 'index'])->name('terapeuta.index');
+
+
+Route::resource('historiales', HistorialController::class);
