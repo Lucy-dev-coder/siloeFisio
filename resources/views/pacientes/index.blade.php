@@ -52,30 +52,8 @@
                 @endforeach
             </tbody>
         </table>
-
-        <!-- Script para inicializar DataTables -->
-        <script>
-            $(document).ready(function() {
-                $('#pacientesTable').DataTable({
-                    "language": {
-                        "lengthMenu": "Mostrar _MENU_ registros por página",
-                        "zeroRecords": "No se encontraron resultados",
-                        "info": "Mostrando página _PAGE_ de _PAGES_",
-                        "infoEmpty": "No hay registros disponibles",
-                        "infoFiltered": "(filtrado de _MAX_ registros totales)",
-                        "search": "Buscar:",
-                        "paginate": {
-                            "first": "Primero",
-                            "last": "Último",
-                            "next": "Siguiente",
-                            "previous": "Anterior"
-                        }
-                    }
-                });
-            });
-        </script>
+     
     </div>
-
 
     <!-- Modal Editar Paciente -->
     <div class="modal fade" id="editPacienteModal" tabindex="-1">
@@ -343,13 +321,11 @@
     <script>
         function editPaciente(paciente) {
 
-
             // Asegúrate que el ID existe
             if (!paciente.id) {
 
                 return;
             }
-
             // Llenar los campos del formulario
             document.getElementById('editPacienteId').value = paciente.id;
             document.getElementById('editPacienteNombres').value = paciente.nombres;
@@ -427,4 +403,5 @@
             });
         });
     </script>
+
 @endsection
