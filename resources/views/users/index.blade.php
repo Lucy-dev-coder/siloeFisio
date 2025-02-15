@@ -5,7 +5,8 @@
     <h2>Gestión de Usuarios</h2>
     <button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createUserModal">Crear Usuario</button>
     
-    <table class="table table-bordered">
+    <table id="usersTable" class="table dataTable">
+
         <thead>
             <tr>
                 <th>Nombre</th>
@@ -148,4 +149,38 @@
 
 
 </script>
+<script>
+    $(document).ready(function() {
+        $('#usersTable').DataTable({
+            scrollX: true,
+            ordering: true,
+            autoWidth: false,
+            pageLength: 10,
+            lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Todos"]],
+            dom: '<"row" <"col-sm-6"l><"col-sm-6 text-end"f> >' +
+                 'rt' +
+                 '<"row" <"col-sm-6"i><"col-sm-6 text-end"p> >',
+            language: {
+                lengthMenu: "Mostrar _MENU_ registros por página",
+                zeroRecords: "No se encontraron resultados",
+                info: "Mostrando página _PAGE_ de _PAGES_",
+                infoEmpty: "No hay registros disponibles",
+                infoFiltered: "(filtrado de _MAX_ registros totales)",
+                search: "<i class='fas fa-search'></i> Buscar:",
+                paginate: {
+                    first: "<i class='fas fa-angle-double-left'></i>",
+                    last: "<i class='fas fa-angle-double-right'></i>",
+                    next: "<i class='fas fa-angle-right'></i>",
+                    previous: "<i class='fas fa-angle-left'></i>"
+                }
+            },
+            initComplete: function() {
+                // Añadir clases de Bootstrap a los elementos de control
+                $('.dataTables_length select').addClass('form-select form-select-sm');
+                $('.dataTables_filter input').addClass('form-control form-control-sm');
+            }
+        });
+    });
+    </script>
+    
 @endsection

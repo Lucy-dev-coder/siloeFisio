@@ -9,6 +9,8 @@
 
 <!-- jQuery -->
 <script src="{{ asset('vendor/JQuery/jquery-3.7.1.min.js') }}"></script>
+<!-- Bootstrap JS -->
+<script src="{{ asset('vendor/Bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 <!-- FontAwesome -->
 <link rel="stylesheet" href="{{ asset('vendor/FontAwesome/css/all.min.css') }}">
@@ -18,10 +20,8 @@
 <link rel="stylesheet" href="{{ asset('vendor/DataTables/datatables.min.css') }}">
 <link rel="stylesheet" href="{{ asset('vendor/DataTables/dataTables.bootstrap5.min.css') }}">
 
+<link rel="stylesheet" href="{{ asset('vendor/css/custom-datatable.css') }}">
 
-
-<!-- Bootstrap JS -->
-<script src="{{ asset('vendor/Bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 <!-- DataTables JS -->
 <script src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
