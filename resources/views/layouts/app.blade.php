@@ -4,14 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fisioterapia - Panel de Administración</title>
-    <!-- Agregar Bootstrap 5 -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    
+    <!-- Bootstrap 5 CSS -->
+    <link rel="stylesheet" href="{{ asset('vendor/Bootstrap/css/bootstrap.min.css') }}">
+
+<!-- FontAwesome -->
+<link rel="stylesheet" href="{{ asset('vendor/FontAwesome/css/all.min.css') }}">
+
+
+<!-- DataTables CSS -->
+<link rel="stylesheet" href="{{ asset('vendor/DataTables/datatables.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendor/DataTables/dataTables.bootstrap5.min.css') }}">
+
+<!-- jQuery -->
+<script src="{{ asset('vendor/JQuery/jquery-3.7.1.min.js') }}"></script>
+
+<!-- Bootstrap JS -->
+<script src="{{ asset('vendor/Bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+
+<!-- DataTables JS -->
+<script src="{{ asset('vendor/DataTables/datatables.min.js') }}"></script>
+
+<!-- Sweetalert2 JS -->
+<script src="{{ asset('vendor/Sweetalert2/sweetalert2.all.min.js') }}"></script>
+<!-- Sweetalert2 CSS -->
+<link rel="stylesheet" href="{{ asset('vendor/Sweetalert2/sweetalert2.min.css') }}">
+
     <style>
         /* Estilo para el panel lateral */
         .sidebar {
